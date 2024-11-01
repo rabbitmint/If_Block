@@ -14,6 +14,8 @@ public final class if_Block extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         setBlock blockSystem = new setBlock(this);
         touchBlockListener = new TouchBlock(blockSystem.getBlockName());
         getServer().getPluginManager().registerEvents(touchBlockListener, this);

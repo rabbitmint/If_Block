@@ -11,9 +11,13 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class TouchBlock implements Listener {
 
-    private final String blockName;
+    private String blockName;
 
     public TouchBlock(String blockName) {
+        this.blockName = blockName;
+    }
+
+    public void setBlockName(String blockName) {
         this.blockName = blockName;
     }
 
@@ -28,15 +32,24 @@ public class TouchBlock implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (blockName == null || blockName.isEmpty()) {
+            return;
+        }
+
         Player player = event.getPlayer();
         Material blockBelow = player.getLocation().subtract(0, 1, 0).getBlock().getType();
+
         if (blockBelow.name().equalsIgnoreCase(blockName)) {
             Bukkit.getLogger().warning(player.getName() + " 님이 " + blockName + " 블럭 위에 있습니다.");
             Bukkit.getLogger().warning(player.getName() + " 님에게 Kill 명령어를 전송합니다.");
-            console("kill "+ player.getName());
+            console("kill " + player.getName());
+
             String titleMessage = ChatColor.GOLD + player.getName() + "님" + ChatColor.GREEN + " 사망!";
             String subtitleMessage = "";
-            player.sendTitle(titleMessage, subtitleMessage, 10, 70, 20);
+
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                onlinePlayer.sendTitle(titleMessage, subtitleMessage, 10, 70, 20);
+            }
         }
     }
 }
