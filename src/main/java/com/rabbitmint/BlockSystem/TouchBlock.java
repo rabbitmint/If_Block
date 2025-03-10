@@ -41,7 +41,7 @@ public class TouchBlock implements Listener {
 
         if (blockBelow.name().equalsIgnoreCase(blockName)) {
             Bukkit.getLogger().warning(player.getName() + " 님이 " + blockName + " 블럭 위에 있습니다.");
-            Bukkit.getLogger().warning(player.getName() + " 님에게 Kill 명령어를 전송합니다.");
+            Bukkit.getLogger().warning(player.getName() + " 님이 사망하셨습니다.");
             console("kill " + player.getName());
 
             String titleMessage = ChatColor.GOLD + player.getName() + "님" + ChatColor.GREEN + " 사망!";
